@@ -1,0 +1,23 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Build Docker image
+        run: docker build -t myapp:${{ github.sha }} ./topic-5
+
+      - name: Run container test
+        run: |
+          docker run -d -p 8000:8000 --name test-container myapp:${{ github.sha }}
+          sleep 3
+          curl http://localhost:8000
+          docker rm -f test-container
