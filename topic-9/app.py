@@ -1,5 +1,5 @@
 from http.server import HTTPServer, BaseHTTPRequestHandler
-import os, socket
+import socket, os
 
 class H(BaseHTTPRequestHandler):
     def do_GET(self):
@@ -7,7 +7,7 @@ class H(BaseHTTPRequestHandler):
         self.send_header('Content-type', 'text/html')
         self.end_headers()
         self.wfile.write(
-            f"<h2>App running on: {socket.gethostname()}</h2>".encode()
+            f"<h2>Request handled by: {socket.gethostname()}</h2>".encode()
         )
     def log_message(self, *a): pass
 
