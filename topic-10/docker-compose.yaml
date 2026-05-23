@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "8080:8000"
+    networks:
+      - mynet
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:alpine
+    networks:
+      - mynet
+
+networks:
+  mynet:
