@@ -1,0 +1,20 @@
+version: '3.8'
+services:
+  payments:
+    build: .
+    command: python payments.py
+    networks:
+      - mynet
+
+  orders:
+    build: .
+    command: python orders.py
+    ports:
+      - "8080:8000"
+    depends_on:
+      - payments
+    networks:
+      - mynet
+
+networks:
+  mynet:
